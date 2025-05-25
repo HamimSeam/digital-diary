@@ -4,7 +4,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 
 const apiKey = import.meta.env.VITE_MAPTILER_KEY;
 
-function Map({ mode, setMode }) {
+function Map({ mode, setMode, handleAddMarker }) {
   const containerRef = useRef(null);
   const mapRef = useRef(null);
 
@@ -36,10 +36,11 @@ function Map({ mode, setMode }) {
     const handleClick = (e) => {
       if (mode !== "add") return;
 
-      new maplibregl.Marker()
+      const marker = new maplibregl.Marker()
         .setLngLat([e.lngLat.lng, e.lngLat.lat])
         .addTo(map);
 
+      handleAddMarker(marker);
       setMode("entry");
     };
 

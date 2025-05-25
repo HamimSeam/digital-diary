@@ -2,6 +2,17 @@
 @import "tailwindcss";
 
 @layer base {
+  input, textarea {
+    @apply appearance-none border border-gray-300 rounded-2xl p-3 outline-none shadow-none focus:ring-0 focus:border-gray-500
+  }
+
+  textarea {
+    @apply outline-none resize-none
+  }
+
+  button {
+    @apply hover:cursor-pointer
+  }
 }
 
 @theme {
