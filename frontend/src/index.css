@@ -7,7 +7,7 @@
   }
 
   h3 {
-    @apply text-4xl mb-5 font-bold
+    @apply text-3xl mb-5 font-bold
   }
 
   input, textarea {
@@ -21,6 +21,10 @@
   button {
     @apply hover:cursor-pointer rounded-4xl px-4 py-2
   }
+
+  hr {
+    @apply h-2/3 m-0
+  }
 }
 
 @theme {
@@ -32,7 +36,7 @@ body {
 }
 
 .top-bar .link {
-  @apply text-3xl font-montserrat;
+  @apply rounded-none text-3xl font-montserrat p-6 m-0 transition duration-100 hover:bg-amber-950 hover:text-white;
 }
 
 .toolbar-btn {

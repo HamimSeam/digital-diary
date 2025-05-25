@@ -5,7 +5,8 @@ import "./App.css";
 import MapPage from "./pages/MapPage";
 import { addDiaryEntry } from "./services/supabaseClient";
 import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage"
+import SignupPage from "./pages/SignupPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -13,7 +14,14 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/" element={<MainLayout />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <MainLayout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<MapPage />}></Route>
         </Route>
       </Routes>
