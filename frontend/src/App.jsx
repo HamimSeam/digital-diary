@@ -3,10 +3,10 @@ import { Routes, Route, BrowserRouter } from "react-router";
 import MainLayout from "./layouts/MainLayout";
 import "./App.css";
 import MapPage from "./pages/MapPage";
-import { addDiaryEntry } from "./services/supabaseClient";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import EntriesPage from "./pages/EntriesPage";
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
           }
         >
           <Route index element={<MapPage />}></Route>
+          <Route path="entries" element={<EntriesPage />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -33,4 +33,4 @@ export async function signIn(email, password) {
   return data.user;
 }
 
-export function addDiaryEntry(entry) {}
+export function createDiaryEntry(entry) {}
