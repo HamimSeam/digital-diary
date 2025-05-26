@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import Map from "../features/map/Map";
 import Toolbar from "../features/map/Toolbar";
-import EntryForm from "../features/map/EntryForm";
+import EntryForm from "../features/entries/EntryForm";
 
 function MapPage() {
   const [mode, setMode] = useState("view");

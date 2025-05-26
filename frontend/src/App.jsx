@@ -8,6 +8,7 @@ import SignupPage from "./pages/SignupPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EntriesPage from "./pages/EntriesPage";
 import EntryFormPage from "./pages/EntryFormPage";
+import EntryPage from "./pages/EntryPage";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route index element={<MapPage />} />
           <Route path="entries" element={<EntriesPage />} />
           <Route path="entries/create" element={<EntryFormPage />} />
+          <Route path="entries/:id" element={<EntryPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -23,7 +23,7 @@ function EntryForm({ handleCancelEntry, onCreateEntry }) {
 
   return (
     <form className="flex flex-col gap-3 h-full" onSubmit={handleCreateEntry}>
-      <input name="title" type="text" placeholder="Title" />
+      <input name="title" type="text" placeholder="Title" required />
       <textarea
         name="content"
         type="text"

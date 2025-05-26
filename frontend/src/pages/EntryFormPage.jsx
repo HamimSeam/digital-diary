@@ -1,5 +1,5 @@
 import React from "react";
-import EntryForm from "../features/map/EntryForm";
+import EntryForm from "../features/entries/EntryForm";
 import { useNavigate } from "react-router";
 
 function EntryFormPage() {

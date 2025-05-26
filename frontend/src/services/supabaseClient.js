@@ -46,3 +46,37 @@ export async function createEntry(entry) {
 
   return data;
 }
+
+export async function getEntries() {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return null;
+
+  const { data, error } = await supabase
+    .from("entries")
+    .select()
+    .eq("user_id", user.id);
+
+  if (error) {
+    console.error("Failed to fetch entries:", error);
+    return null;
+  }
+
+  return data;
+}
+
+export async function getEntryById(id) {
+  const { data, error } = await supabase
+    .from("entries")
+    .select()
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error("Failed to fetch entry", error);
+  }
+
+  return data;
+}

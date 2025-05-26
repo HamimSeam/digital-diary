@@ -1,7 +1,16 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router";
+import { getEntries } from "../services/supabaseClient";
+import EntryPreview from "../features/entries/EntryPreview";
 
 function EntriesPage() {
+  const [entries, setEntries] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getEntries().then((data) => setEntries(data));
+  }, []);
+
   return (
     <div className="flex h-full">
       <form className="flex flex-col gap-3 bg-stone-100 border-r-gray-400 border-r-2 w-1/5 h-full p-4">
@@ -28,6 +37,16 @@ function EntriesPage() {
           >
             + New Entry
           </Link>
+        </div>
+        <div className="flex flex-col gap-3">
+          {entries &&
+            entries.map((entry) => (
+              <EntryPreview
+                key={entry.id}
+                entry={entry}
+                onClick={() => navigate(`/entries/${entry.id}`)}
+              />
+            ))}
         </div>
       </div>
     </div>
