@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getEntryById } from "../services/supabaseClient";
+import { getEntryById, deleteEntry } from "../services/supabaseClient";
 
 function EntryPage() {
   const { id } = useParams();
@@ -10,6 +10,17 @@ function EntryPage() {
   useEffect(() => {
     getEntryById(id).then((data) => setEntry(data));
   }, []);
+
+async function handleDeleteEntry() {
+  const result = await deleteEntry(id);
+
+  if (!result) {
+    console.error("Entry delete error");
+    return;
+  }
+
+  navigate("/entries");
+}
 
   return (
     <div className="flex justify-center bg-rose-50 w-screen min-h-full p-6">
@@ -27,7 +38,12 @@ function EntryPage() {
             >
               Edit
             </button>
-            <button className="bg-amber-800 text-white">Delete</button>
+            <button
+              className="bg-amber-800 text-white"
+              onClick={handleDeleteEntry}
+            >
+              Delete
+            </button>
           </div>
         </main>
       )}

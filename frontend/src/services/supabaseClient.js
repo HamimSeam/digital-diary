@@ -99,3 +99,18 @@ export async function editEntry(entry) {
 
   return data;
 }
+
+export async function deleteEntry(entryId) {
+  const { data, error } = await supabase
+    .from("entries")
+    .delete()
+    .eq("id", entryId)
+    .select();
+
+  if (error) {
+    console.error("Error deleting entry:", error);
+    return null;
+  }
+
+  return data;
+}
