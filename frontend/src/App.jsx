@@ -7,6 +7,7 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import EntriesPage from "./pages/EntriesPage";
+import EntryFormPage from "./pages/EntryFormPage";
 
 function App() {
   return (
@@ -22,8 +23,9 @@ function App() {
             </ProtectedRoute>
           }
         >
-          <Route index element={<MapPage />}></Route>
-          <Route path="entries" element={<EntriesPage />}></Route>
+          <Route index element={<MapPage />} />
+          <Route path="entries" element={<EntriesPage />} />
+          <Route path="entries/create" element={<EntryFormPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -33,4 +33,16 @@ export async function signIn(email, password) {
   return data.user;
 }
 
-export function createDiaryEntry(entry) {}
+export async function createEntry(entry) {
+  const { data, error } = await supabase
+    .from("entries")
+    .insert([entry])
+    .select();
+
+  if (error) {
+    console.error("Error when creating entry:", error);
+    return null;
+  }
+
+  return data;
+}
