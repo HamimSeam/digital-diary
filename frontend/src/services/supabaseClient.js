@@ -80,3 +80,22 @@ export async function getEntryById(id) {
 
   return data;
 }
+
+export async function editEntry(entry) {
+  const { data, error } = await supabase
+    .from("entries")
+    .update({
+      title: entry.title,
+      content: entry.content,
+    })
+    .eq("id", entry.id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error when editing entry:", error);
+    return null;
+  }
+
+  return data;
+}

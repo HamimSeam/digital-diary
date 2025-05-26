@@ -26,8 +26,15 @@ function App() {
         >
           <Route index element={<MapPage />} />
           <Route path="entries" element={<EntriesPage />} />
-          <Route path="entries/create" element={<EntryFormPage />} />
+          <Route
+            path="entries/create"
+            element={<EntryFormPage mode="create" />}
+          />
           <Route path="entries/:id" element={<EntryPage />} />
+          <Route
+            path="entries/:id/edit"
+            element={<EntryFormPage mode="edit" />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

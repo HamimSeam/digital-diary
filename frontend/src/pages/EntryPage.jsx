@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getEntryById } from "../services/supabaseClient";
 
 function EntryPage() {
   const { id } = useParams();
   const [entry, setEntry] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getEntryById(id).then((data) => setEntry(data));
@@ -20,7 +21,12 @@ function EntryPage() {
           <h3>{entry.title}</h3>
           <p className="flex-1">{entry.content}</p>
           <div className="flex gap-3 ml-auto">
-            <button className="bg-amber-800 text-white">Edit</button>
+            <button
+              className="bg-amber-800 text-white"
+              onClick={() => navigate(`/entries/${id}/edit`)}
+            >
+              Edit
+            </button>
             <button className="bg-amber-800 text-white">Delete</button>
           </div>
         </main>
