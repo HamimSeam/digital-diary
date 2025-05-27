@@ -47,17 +47,30 @@ export async function createEntry(entry) {
   return data;
 }
 
-export async function getEntries() {
+export async function getEntries(queryOptions = {}) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
   if (!user) return null;
 
-  const { data, error } = await supabase
-    .from("entries")
-    .select()
-    .eq("user_id", user.id);
+  let query = supabase.from("entries").select().eq("user_id", user.id);
+
+  if (queryOptions.startDate) {
+    query = query.gte("created_at", queryOptions.startDate);
+  }
+
+  if (queryOptions.endDate) {
+    query = query.lte("created_at", queryOptions.endDate);
+  }
+
+  if (queryOptions.sortBy) {
+    query = query.order(queryOptions.sortBy, {
+      ascending: queryOptions.ascending ?? true,
+    });
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     console.error("Failed to fetch entries:", error);

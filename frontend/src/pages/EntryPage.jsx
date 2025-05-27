@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { getEntryById, deleteEntry } from "../services/supabaseClient";
+import { formatDate } from "../utils/dates";
 
 function EntryPage() {
   const { id } = useParams();
@@ -23,11 +24,11 @@ async function handleDeleteEntry() {
 }
 
   return (
-    <div className="flex justify-center bg-rose-50 w-screen min-h-full p-6">
+    <div className="flex justify-center bg-rose-50 w-full min-h-full p-6">
       {entry && (
         <main className="flex flex-col w-3/5 gap-3 min-h-5/6 p-6 border-2 bg-white rounded-3xl">
           <div className="ml-auto">
-            <p>05/25/2025</p>
+            <p>{formatDate(entry.created_at)}</p>
           </div>
           <h3>{entry.title}</h3>
           <p className="flex-1">{entry.content}</p>
