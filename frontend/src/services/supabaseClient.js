@@ -49,25 +49,39 @@ export async function createEntry(entry) {
 
 export async function getEntries(queryOptions = {}) {
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    startDate,
+    endDate,
+    sortBy,
+    ascending = true,
+    searchTerm,
+  } = queryOptions;
 
-  if (!user) return null;
+  const { data: userData, error: authError } = await supabase.auth.getUser();
+
+  if (authError || !userData?.user) {
+    console.error("User not authenticated:", authError?.message);
+    return null;
+  }
+
+  const user = userData.user;
 
   let query = supabase.from("entries").select().eq("user_id", user.id);
 
-  if (queryOptions.startDate) {
-    query = query.gte("created_at", queryOptions.startDate);
+  if (startDate) {
+    query = query.gte("created_at", startDate);
   }
 
-  if (queryOptions.endDate) {
-    query = query.lte("created_at", queryOptions.endDate);
+  if (endDate) {
+    query = query.lte("created_at", endDate);
   }
 
-  if (queryOptions.sortBy) {
-    query = query.order(queryOptions.sortBy, {
-      ascending: queryOptions.ascending ?? true,
-    });
+  if (sortBy) {
+    query = query.order(sortBy, { ascending });
+  }
+
+  if (searchTerm) {
+    const term = `%${searchTerm}%`;
+    query = query.or(`title.ilike.${term},content.ilike.${term}`);
   }
 
   const { data, error } = await query;

@@ -26,6 +26,21 @@ function EntriesPage() {
     }));
   }
 
+  function handleQueryOptions(key, value) {
+    if (!value) {
+      setQueryOptions((prev) => {
+        const { [key]: _, ...rest } = prev;
+        return rest;
+      });
+      return;
+    }
+
+    setQueryOptions((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  }
+
   function handleFilters(e) {
     e.preventDefault();
 
@@ -66,8 +81,9 @@ function EntriesPage() {
 
   return (
     <div className="flex h-full">
+      {/*Side bar options*/}
       <form
-        className="flex flex-col gap-3 bg-stone-100 border-r-gray-400 border-r-2 w-1/5 h-full p-4"
+        className="flex flex-col gap-3 bg-stone-100 border-r-gray-400 border-r-2 w-1/5 p-4"
         onSubmit={handleFilters}
       >
         <fieldset className="flex flex-col gap-2 border-1 rounded-2xl p-3">
@@ -92,7 +108,12 @@ function EntriesPage() {
       </form>
       <div className="flex flex-col gap-2 w-full bg-rose-50 p-4">
         <div className="flex bg-gray-50 border-1 border-gray-500 text-gray-500 rounded-full px-3">
-          <input type="search" className="flex-1 border-0" />
+          {/*Search bar*/}
+          <input
+            type="search"
+            className="flex-1 border-0"
+            onChange={(e) => handleQueryOptions("searchTerm", e.target.value)}
+          />
           <button className="bg-">🔍</button>
         </div>
         <div className="flex justify-end items-center gap-2">
