@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { getEntries } from "../services/supabaseClient";
 import EntryPreview from "../features/entries/EntryPreview";
-import { convertLocalToUtc } from "../utils/dates";
+import { convertLocalToUtc, incrementDate } from "../utils/dates";
 
 function EntriesPage() {
   const [entries, setEntries] = useState(null);
@@ -26,7 +26,9 @@ function EntriesPage() {
     }));
   }
 
-  function handleQueryOptions(key, value) {
+  function handleQueryOptions(e) {
+    let { name: key, value } = e.target;
+
     if (!value) {
       setQueryOptions((prev) => {
         const { [key]: _, ...rest } = prev;
@@ -34,6 +36,9 @@ function EntriesPage() {
       });
       return;
     }
+
+    if (key === "startDate") value = convertLocalToUtc(value);
+    if (key === "endDate") value = convertLocalToUtc(incrementDate(value));
 
     setQueryOptions((prev) => ({
       ...prev,
@@ -86,12 +91,13 @@ function EntriesPage() {
         className="flex flex-col gap-3 bg-stone-100 border-r-gray-400 border-r-2 w-1/5 p-4"
         onSubmit={handleFilters}
       >
+        {/*Dates*/}
         <fieldset className="flex flex-col gap-2 border-1 rounded-2xl p-3">
           <legend className="ml-2">Date Range</legend>
           <label>Start date:</label>
-          <input type="date" name="startDate" />
+          <input type="date" name="startDate" onChange={handleQueryOptions} />
           <label>End date:</label>
-          <input type="date" name="endDate" />
+          <input type="date" name="endDate" onChange={handleQueryOptions} />
         </fieldset>
         <div className="flex gap-2 ml-auto">
           <button
@@ -111,8 +117,9 @@ function EntriesPage() {
           {/*Search bar*/}
           <input
             type="search"
+            name="searchTerm"
             className="flex-1 border-0"
-            onChange={(e) => handleQueryOptions("searchTerm", e.target.value)}
+            onChange={handleQueryOptions}
           />
           <button className="bg-">🔍</button>
         </div>

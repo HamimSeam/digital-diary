@@ -72,7 +72,7 @@ export async function getEntries(queryOptions = {}) {
   }
 
   if (endDate) {
-    query = query.lte("created_at", endDate);
+    query = query.lt("created_at", endDate);
   }
 
   if (sortBy) {

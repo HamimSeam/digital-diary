@@ -19,3 +19,9 @@ export function convertLocalToUtc(localDate) {
   const dateObj = localDate instanceof Date ? localDate : new Date(localDate);
   return dateObj.toISOString();
 }
+
+export function incrementDate(dateString) {
+  const date = new Date(dateString);
+  date.setDate(date.getDate() + 1);
+  return date
+}
