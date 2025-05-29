@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { getEntries } from "../services/supabaseClient";
 import EntryPreview from "../features/entries/EntryPreview";
-import { convertLocalToUtc, incrementDate } from "../utils/dates";
+import { startDateToUTC, endDateToUTC } from "../utils/dates";
 
 function EntriesPage() {
   const [entries, setEntries] = useState(null);
@@ -37,8 +37,8 @@ function EntriesPage() {
       return;
     }
 
-    if (key === "startDate") value = convertLocalToUtc(value);
-    if (key === "endDate") value = convertLocalToUtc(incrementDate(value));
+    if (key === "startDate") value = startDateToUTC(value);
+    if (key === "endDate") value = endDateToUTC(value);
 
     setQueryOptions((prev) => ({
       ...prev,
