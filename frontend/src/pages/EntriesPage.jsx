@@ -2,13 +2,21 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router";
 import { getEntries } from "../services/supabaseClient";
 import EntryPreview from "../features/entries/EntryPreview";
-import { startDateToUTC, endDateToUTC } from "../utils/dates";
+import {
+  startDateToUtc,
+  endDateToUtc,
+  startDateToLocal,
+  endDateToLocal,
+} from "../utils/dates";
 
 function EntriesPage() {
   const [entries, setEntries] = useState(null);
   const [queryOptions, setQueryOptions] = useState({
     sortBy: "created_at",
     ascending: false,
+    startDate: "",
+    endDate: "",
+    searchTerm: "",
   });
 
   const navigate = useNavigate();
@@ -37,8 +45,8 @@ function EntriesPage() {
       return;
     }
 
-    if (key === "startDate") value = startDateToUTC(value);
-    if (key === "endDate") value = endDateToUTC(value);
+    if (key === "startDate") value = startDateToUtc(value);
+    if (key === "endDate") value = endDateToUtc(value);
 
     setQueryOptions((prev) => ({
       ...prev,
@@ -46,39 +54,11 @@ function EntriesPage() {
     }));
   }
 
-  function handleFilters(e) {
-    e.preventDefault();
-
-    const startInput = e.target.startDate.value;
-    const endInput = e.target.endDate.value;
-
-    const startDate = startInput
-      ? convertLocalToUtc(`${startInput}T00:00:00`)
-      : null;
-
-    const endDate = endInput
-      ? convertLocalToUtc(`${endInput}T23:59:59.999`)
-      : null;
-
-    setQueryOptions((prev) => ({
-      ...prev,
-      startDate,
-      endDate,
-    }));
-
-    console.log("Filters applied:", { startDate, endDate });
-  }
-
   function resetFilters(e) {
-    e.preventDefault();
-
-    e.target.form.startDate.value = "";
-    e.target.form.endDate.value = "";
-
     setQueryOptions((prev) => ({
       ...prev,
-      startDate: null,
-      endDate: null,
+      startDate: "",
+      endDate: "",
     }));
 
     console.log("Filters reset");
@@ -87,17 +67,30 @@ function EntriesPage() {
   return (
     <div className="flex h-full">
       {/*Side bar options*/}
-      <form
-        className="flex flex-col gap-3 bg-stone-100 border-r-gray-400 border-r-2 w-1/5 p-4"
-        onSubmit={handleFilters}
-      >
+      <form className="flex flex-col gap-3 bg-stone-100 border-r-gray-400 border-r-2 w-1/5 p-4">
         {/*Dates*/}
         <fieldset className="flex flex-col gap-2 border-1 rounded-2xl p-3">
           <legend className="ml-2">Date Range</legend>
           <label>Start date:</label>
-          <input type="date" name="startDate" onChange={handleQueryOptions} />
+          <input
+            type="date"
+            value={
+              queryOptions.startDate
+                ? startDateToLocal(queryOptions.startDate)
+                : ""
+            }
+            name="startDate"
+            onChange={handleQueryOptions}
+          />
           <label>End date:</label>
-          <input type="date" name="endDate" onChange={handleQueryOptions} />
+          <input
+            type="date"
+            value={
+              queryOptions.endDate ? endDateToLocal(queryOptions.endDate) : ""
+            }
+            name="endDate"
+            onChange={handleQueryOptions}
+          />
         </fieldset>
         <div className="flex gap-2 ml-auto">
           <button
@@ -107,9 +100,6 @@ function EntriesPage() {
           >
             Reset Filters
           </button>
-          <button type="submit" className="bg-amber-900 text-white">
-            Apply Filters
-          </button>
         </div>
       </form>
       <div className="flex flex-col gap-2 w-full bg-rose-50 p-4">
@@ -118,6 +108,7 @@ function EntriesPage() {
           <input
             type="search"
             name="searchTerm"
+            value={queryOptions.searchTerm || ""}
             className="flex-1 border-0"
             onChange={handleQueryOptions}
           />
