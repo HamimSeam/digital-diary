@@ -2,16 +2,29 @@
 @import "tailwindcss";
 
 @layer base {
-  input, textarea {
-    @apply appearance-none border border-gray-300 rounded-2xl p-3 outline-none shadow-none focus:ring-0 focus:border-gray-500
+  h1 {
+    @apply text-6xl mb-5 font-bold;
+  }
+
+  h3 {
+    @apply text-3xl mb-5 font-bold;
+  }
+
+  input,
+  textarea {
+    @apply border border-gray-300 rounded-2xl p-3 outline-none shadow-none focus:ring-0 focus:border-gray-500;
   }
 
   textarea {
-    @apply outline-none resize-none
+    @apply outline-none resize-none;
   }
 
   button {
-    @apply hover:cursor-pointer
+    @apply hover:cursor-pointer rounded-4xl px-4 py-2;
+  }
+
+  hr {
+    @apply h-2/3 m-0;
   }
 }
 
@@ -24,9 +37,13 @@ body {
 }
 
 .top-bar .link {
-  @apply text-3xl font-montserrat;
+  @apply rounded-none text-2xl font-montserrat p-6 m-0 transition duration-100 hover:bg-amber-950 hover:text-white;
 }
 
 .toolbar-btn {
   @apply p-2 bg-white rounded-full transition duration-100 hover:bg-gray-300 cursor-pointer;
+}
+
+.link-btn {
+  @apply hover:cursor-pointer rounded-4xl px-4 py-2;
 }

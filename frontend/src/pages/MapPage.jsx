@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import Map from "../features/map/Map";
 import Toolbar from "../features/map/Toolbar";
-import EntryForm from "../features/map/EntryForm";
+import EntryForm from "../features/entries/EntryForm";
 
 function MapPage() {
   const [mode, setMode] = useState("view");
@@ -38,7 +38,7 @@ function MapPage() {
       )}
       {mode === "entry" && (
         <div className="absolute top-1/2 right-3 w-2/5 h-10/11 rounded-2xl p-3 bg-white shadow-lg overflow-auto z-20 transform -translate-y-1/2">
-          <EntryForm handleCancelEntry={handleCancelEntry} />
+          <EntryForm onCancelEntry={handleCancelEntry} />
         </div>
       )}
       <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
