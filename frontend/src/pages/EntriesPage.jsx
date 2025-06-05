@@ -65,69 +65,86 @@ function EntriesPage() {
   }
 
   return (
-    <div className="flex h-full">
-      {/*Side bar options*/}
-      <form className="flex flex-col gap-3 bg-stone-100 border-r-gray-400 border-r-2 w-1/5 p-4">
-        {/*Dates*/}
-        <fieldset className="flex flex-col gap-2 border-1 rounded-2xl p-3">
-          <legend className="ml-2">Date Range</legend>
-          <label>Start date:</label>
+    <div className="flex h-full w-11/12 justify-center p-5 gap-6">
+      {/* Sidebar Filters */}
+      <form className="flex flex-col gap-4 bg-white border border-gray-200 w-1/4 min-w-[220px] max-w-[300px] p-4 rounded-xl text-gray-700 shadow-sm">
+        <div className="font-semibold text-2xl">Filters</div>
+
+        <div className="flex flex-col gap-2 bg-white border border-gray-300 rounded-xl p-4 shadow-sm">
+          <div className="text-md font-semibold text-emerald-600">
+            Date Range
+          </div>
+
+          <label className="text-sm text-gray-600">Start date</label>
           <input
             type="date"
+            name="startDate"
             value={
               queryOptions.startDate
                 ? startDateToLocal(queryOptions.startDate)
                 : ""
             }
-            name="startDate"
             onChange={handleQueryOptions}
+            className="border border-gray-300 rounded-md px-2 py-1 text-sm"
           />
-          <label>End date:</label>
+
+          <label className="text-sm text-gray-600">End date</label>
           <input
             type="date"
+            name="endDate"
             value={
               queryOptions.endDate ? endDateToLocal(queryOptions.endDate) : ""
             }
-            name="endDate"
             onChange={handleQueryOptions}
+            className="border border-gray-300 rounded-md px-2 py-1 text-sm"
           />
-        </fieldset>
-        <div className="flex gap-2 ml-auto">
+        </div>
+
+        <div className="flex justify-end">
           <button
             type="button"
             onClick={resetFilters}
-            className="bg-amber-900 text-white"
+            className="bg-amber-900 text-white text-sm px-3 py-1 rounded-md hover:bg-amber-800 transition"
           >
-            Reset Filters
+            Reset
           </button>
         </div>
       </form>
-      <div className="flex flex-col gap-2 w-full bg-rose-50 p-4">
-        <div className="flex bg-gray-50 border-1 border-gray-500 text-gray-500 rounded-full px-3">
-          {/*Search bar*/}
+
+      {/* Main Content */}
+      <div className="flex flex-col gap-5 w-full">
+        {/* Search Bar */}
+        <div className="flex bg-white border border-gray-300 rounded-full px-4 py-2 shadow-sm">
           <input
             type="search"
             name="searchTerm"
             value={queryOptions.searchTerm || ""}
-            className="flex-1 border-0"
+            className="flex-1 border-none outline-none text-sm placeholder:text-gray-400"
             onChange={handleQueryOptions}
+            placeholder="Search for an entry..."
           />
-          <button className="bg-">🔍</button>
         </div>
-        <div className="flex justify-end items-center gap-2">
-          <span>Sort by: </span>
-          <select onChange={handleSort}>
+
+        {/* Sort & New Entry */}
+        <div className="flex justify-end items-center gap-3">
+          <span className="text-sm text-gray-600">Sort by:</span>
+          <select
+            onChange={handleSort}
+            className="text-sm border border-gray-300 rounded-md px-2 py-1"
+          >
             <option value="created_at:desc">Newest</option>
             <option value="created_at:asc">Oldest</option>
           </select>
           <Link
             to="/entries/create"
-            className="link-btn bg-amber-900 text-white"
+            className="bg-amber-900 text-white text-sm px-4 py-2 rounded-md hover:bg-amber-800 transition"
           >
             + New Entry
           </Link>
         </div>
-        <div className="flex flex-col gap-3">
+
+        {/* Entries List */}
+        <div className="flex flex-col divide-y divide-gray-300 bg-white rounded-xl shadow-sm">
           {entries &&
             entries.map((entry) => (
               <EntryPreview

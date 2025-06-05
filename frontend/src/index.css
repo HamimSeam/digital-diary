@@ -37,7 +37,7 @@ body {
 }
 
 .top-bar .link {
-  @apply rounded-none text-2xl font-montserrat p-6 m-0 transition duration-100 hover:bg-amber-950 hover:text-white;
+  @apply rounded-none text-xl font-montserrat p-6 m-0 transition duration-100 hover:bg-amber-950 hover:text-white;
 }
 
 .toolbar-btn {

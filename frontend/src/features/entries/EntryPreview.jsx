@@ -1,12 +1,16 @@
 import React from "react";
+import { formatDate } from "../../utils/dates";
 
 function EntryPreview({ entry, onClick }) {
   return (
-    <div className="bg-white rounded-3xl border-2 p-4 h-35" onClick={onClick}>
-      <h3>{entry.title}</h3>
+    <div className="flex flex-col gap-2 bg-white rounded-xl shadow-lg p-4 h-36" onClick={onClick}>
+      <div className="ml-auto text-gray-500 text-md">
+        <p>{formatDate(entry.created_at)} • New York, NY</p>
+      </div>
+      <div className="text-2xl font-semibold mb-2">{entry.title}</div>
       <p>
-        {entry.content.length > 300
-          ? entry.content.slice(0, 300) + "..."
+        {entry.content.length > 100
+          ? entry.content.slice(0, 100) + "..."
           : entry.content}
       </p>
     </div>

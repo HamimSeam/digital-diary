@@ -12,35 +12,39 @@ function EntryPage() {
     getEntryById(id).then((data) => setEntry(data));
   }, []);
 
-async function handleDeleteEntry() {
-  const result = await deleteEntry(id);
+  async function handleDeleteEntry() {
+    const result = await deleteEntry(id);
 
-  if (!result) {
-    console.error("Entry delete error");
-    return;
+    if (!result) {
+      console.error("Entry delete error");
+      return;
+    }
+
+    navigate("/entries");
   }
 
-  navigate("/entries");
-}
-
   return (
-    <div className="flex justify-center bg-rose-50 w-full min-h-full p-6">
+    <div className="flex justify-center w-full p-6">
       {entry && (
-        <main className="flex flex-col w-3/5 gap-3 min-h-5/6 p-6 border-2 bg-white rounded-3xl">
-          <div className="ml-auto">
+        <main className="flex flex-col w-6xl gap-4 min-h-[80vh] p-6 border border-gray-200 bg-white rounded-3xl shadow-sm">
+          <div className="ml-auto text-gray-500 text-sm">
             <p>{formatDate(entry.created_at)}</p>
           </div>
-          <h3>{entry.title}</h3>
-          <p className="flex-1">{entry.content}</p>
+          <h3 className="text-2xl font-semibold text-gray-800">
+            {entry.title}
+          </h3>
+          <p className="flex-1 text-gray-700 whitespace-pre-wrap">
+            {entry.content}
+          </p>
           <div className="flex gap-3 ml-auto">
             <button
-              className="bg-amber-800 text-white"
+              className="bg-amber-800 hover:bg-amber-900 text-white px-4 py-2 rounded-md transition"
               onClick={() => navigate(`/entries/${id}/edit`)}
             >
               Edit
             </button>
             <button
-              className="bg-amber-800 text-white"
+              className="bg-amber-800 hover:bg-amber-900 text-white px-4 py-2 rounded-md transition"
               onClick={handleDeleteEntry}
             >
               Delete

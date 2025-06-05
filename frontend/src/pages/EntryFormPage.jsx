@@ -18,8 +18,8 @@ function EntryFormPage({ mode }) {
   }
 
   return (
-    <div className="bg-rose-50 flex justify-center w-screen h-full p-10">
-      <main className="bg-white border-2 rounded-4xl border-gray-500 w-5/6 p-6">
+    <div className="flex justify-center w-screen h-full p-10">
+      <main className="bg-white border border-gray-200 rounded-3xl shadow-sm w-full max-w-4xl p-8">
         <EntryForm
           onCreateEntry={handleCreateEntry}
           onEditEntry={handleEditEntry}

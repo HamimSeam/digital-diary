@@ -6,7 +6,7 @@ function MainLayout() {
   return (
     <div className="flex flex-col h-screen">
       <TopBar />
-      <div className="flex-1">
+      <div className="flex justify-center flex-1 bg-gray-100">
         <Outlet />
       </div>
     </div>
