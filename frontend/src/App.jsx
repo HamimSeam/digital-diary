@@ -9,6 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import EntriesPage from "./pages/EntriesPage";
 import EntryFormPage from "./pages/EntryFormPage";
 import EntryPage from "./pages/EntryPage";
+import Editor from "./features/entries/Editor";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             path="entries/:id/edit"
             element={<EntryFormPage mode="edit" />}
           />
+          <Route path="editor" element={<Editor />} />
         </Route>
       </Routes>
     </BrowserRouter>

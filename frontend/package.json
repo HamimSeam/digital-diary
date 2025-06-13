@@ -12,6 +12,8 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.49.8",
     "@tailwindcss/vite": "^4.1.7",
+    "@tiptap/react": "^2.14.0",
+    "@tiptap/starter-kit": "^2.14.0",
     "date-fns": "^4.1.0",
     "leaflet": "^1.9.4",
     "maplibre-gl": "^5.5.0",
